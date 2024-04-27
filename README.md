@@ -6,18 +6,18 @@ The AI Project Starter Pack is a meticulously structured directory and module fr
    `pip install ai-project-setup`  
 
 2. Create your new AI Project and Package
-   ```
-   import ai_project_setup_package.project_setup as ps
-   
-  # Create an instance of ProjectSetup
-  proj = ps.ProjectSetup("ExampleProject", "../content_ps/example")
-  
-  # Create the project structure
-  proj.new_project()
-  
-  # Optionally, add a specific package within the project
-  proj.new_package("example_package")
-   ```
+```
+import project_setup as ps
+
+# Create an instance of a new AI ProjectSetup
+proj = ps.ProjectSetup("ExampleProject", "./example")
+
+# Create the project structure
+proj.new_project()
+
+# Optionally, add a specific package within the project
+proj.new_package("example_package")
+```
 
 # Output: Project Directory Structure
 ```
