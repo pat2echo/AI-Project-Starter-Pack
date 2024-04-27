@@ -3,49 +3,52 @@ The AI Project Starter Pack is a meticulously structured directory and module fr
 
 
 # Output: Project Directory Structure
-
-## `name_of_package/`
-This is the main package directory where the core functionalities of your project reside. It is organized into several subdirectories each catering to specific needs:
-
-### `data/`
-- **`loader.py`**: Modules for data loading.
-- **`preprocess.py`**: Modules for data preprocessing.
-
-### `features/`
-- **`builder.py`**: Code for feature engineering and transformations.
-
-### `ml_models/`
-- **`train_model.py`**: Houses model training scripts.
-- **`predict_model.py`**: Contains prediction scripts.
-
-### `utils/`
-- **`helpers.py`**: Comprises utility functions which can be used across the project.
-
-### `visualization/`
-- **`visualize.py`**: Dedicated to visualization functions that help in plotting and data interpretation.
-
-## `notebooks/`
-Contains Jupyter notebooks for various stages of the project, including:
-- Exploratory data analysis.
-- Feature engineering.
-- Model training.
-- Model evaluation.
-- Explainable AI insights.
-
-## `backup_notebooks/`
-Stores backup copies of notebooks, ensuring data recovery and version control.
-
-## `tests/`
-Includes a test suite with scripts designed to test:
-- Data handling.
-- Feature engineering.
-- Model functionality.
-
-## `setup.py`
-A setup script for installing the project as a package.
-
-## `requirements.txt`
-Lists all project dependencies, ensuring reproducibility.
-
-## `README.md`
-Provides an overview of the project, setup instructions, and additional documentation.
+```
+Name_of_project/
+│
+├── name_of_package/          # Main package directory
+│   ├── __init__.py         # Initializes the Python package
+│   ├── data/               # Modules for data handling
+│   │   ├── __init__.py
+│   │   ├── loader.py       # Data loading functionality
+│   │   └── preprocess.py   # Data cleaning and preprocessing
+│   │
+│   ├── features/           # Feature engineering
+│   │   ├── __init__.py
+│   │   └── builder.py      # Build and transform features
+│   │
+│   ├── ml_models/          # ML models
+│   │   ├── __init__.py
+│   │   ├── train_model.py  # Training scripts
+│   │   └── predict_model.py# Prediction scripts
+│   │
+│   ├── utils/              # Utility functions
+│   │   ├── __init__.py
+│   │   └── helpers.py      # Helper functions
+│   │
+│   └── visualization/      # Visualization tools
+│       ├── __init__.py
+│       └── visualize.py   # Plotting and visualization functions
+│
+├── notebooks/              # Jupyter notebooks for specific activities
+|   └── main.ipynb		   #Complete project
+│   └── exploratory_analysis.ipynb
+|   └── features_engineering.ipynb
+|   └── model_training.ipynb
+|   └── model_evaluation.ipynb
+|   └── explainable_ai.ipynb
+|
+├── backup_notebooks/              # Auto copied from google drive
+|   └── backup_main.ipynb  
+|   …
+|
+├── tests/                  # Test suite
+│   ├── __init__.py
+│   ├── test_data.py
+│   ├── test_features.py
+│   └── test_models.py
+│
+├── setup.py                # Setup file for package installation
+├── requirements.txt        # Dependencies
+└── README.md               # Project overview
+```
