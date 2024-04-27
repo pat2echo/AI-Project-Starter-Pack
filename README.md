@@ -1,6 +1,23 @@
 # AI Project Starter Pack
 The AI Project Starter Pack is a meticulously structured directory and module framework designed for creating machine learning and data science projects. This starter pack aims to streamline the project setup process, helping data scientists and developers organize their code, data, and documentation efficiently. 
 
+# How it Works
+1. Install the package  
+   `pip install ai-project-setup`  
+
+2. Create your new AI Project and Package
+   ```
+   import ai_project_setup_package.project_setup as ps
+   
+  # Create an instance of ProjectSetup
+  proj = ps.ProjectSetup("ExampleProject", "../content_ps/example")
+  
+  # Create the project structure
+  proj.new_project()
+  
+  # Optionally, add a specific package within the project
+  proj.new_package("example_package")
+   ```
 
 # Output: Project Directory Structure
 ```
