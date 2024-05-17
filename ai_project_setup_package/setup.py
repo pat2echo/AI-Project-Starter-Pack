@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ai_project_setup',
-    version='0.2.0',
+    version='0.2.1',
     packages=find_packages(),
     description='A versatile utility package designed to streamline the setup of AI project structures while seamlessly integrating with Git repositories and Google Colab, simplifying the process of building collaborative AI projects.',
     author='Patrick Ogbuitepu',
