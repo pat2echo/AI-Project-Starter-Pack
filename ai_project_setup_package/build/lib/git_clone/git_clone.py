@@ -2,6 +2,7 @@ import os
 import shutil
 from datetime import datetime
 import re
+import subprocess
 
 try:
   from google.colab import userdata
@@ -184,7 +185,8 @@ class GitClone:
                   error = f"User aborted the Clone Operation because the directory exists"
               
             if error == '':
-              !git clone {url}
+              #!git clone {url}
+              subprocess.run(["git", "clone", url])
             
             if os.path.exists(git_dir):
               os.chdir(dir)
@@ -207,21 +209,25 @@ class GitClone:
       Returns:
         str: Name of current git branch
       """
-      branch_name = ''
       error = ''
-      try:
-          branch_output = !git branch
-          # Find the line with an asterisk (*) indicating the current branch
-          for line in branch_output:
-              if line.startswith('*'):
-                  # Extract the branch name (remove the asterisk)
-                  branch_name = line[1:].strip()
-                  # Regular expression pattern for ANSI escape codes
-                  ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-                  branch_name = ansi_escape.sub('', branch_name)
+      branch_name = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD']).decode().strip()
+      ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+      branch_name = ansi_escape.sub('', branch_name)
 
-      except Exception as e:
-          error = f"Error: Unable to get Git branch: {e}"
+      # branch_name = ''
+      # try:
+      #     branch_output = !git branch
+      #     # Find the line with an asterisk (*) indicating the current branch
+      #     for line in branch_output:
+      #         if line.startswith('*'):
+      #             # Extract the branch name (remove the asterisk)
+      #             branch_name = line[1:].strip()
+      #             # Regular expression pattern for ANSI escape codes
+      #             ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+      #             branch_name = ansi_escape.sub('', branch_name)
+
+      # except Exception as e:
+      #     error = f"Error: Unable to get Git branch: {e}"
 
       if error: 
         print(error)
@@ -238,15 +244,22 @@ class GitClone:
       Returns:
         none: Returns Nothing
       """
-      !git config --global user.email {self.user_email}
-      !git config --global user.name {self.user_email}
+      #!git config --global user.email {self.user_email}
+      subprocess.run(["git", "config", "--global", "user.email", self.user_email])
+
+      #!git config --global user.name {self.user_email}
+      subprocess.run(["git", "config", "--global", "user.name", self.user_name])
+
       #!git config --global user.name {self.user_name}
       !git add . 
-      commitMsg = input("Enter your commit message that describes the changes that you have made to the files: ")
-      if commitMsg == '':
-        commitMsg = f'Commit at {datetime.now()}'
-      !git commit -m "{commitMsg}"
-      !git remote set-url origin {self.url}
-      !git push origin {self.branch_name}
+      commit_msg = input("Enter your commit message that describes the changes that you have made to the files: ")
+      if commit_msg == '':
+        commit_msg = f'Commit at {datetime.now()}'
+      #!git commit -m "{commit_msg}"
+      subprocess.run(["git", "commit", "-m", commit_msg])
+      #!git remote set-url origin {self.url}
+      subprocess.run(["git", "remote", "set-url", "origin", self.url])
+      #!git push origin {self.branch_name}
+      subprocess.run(["git", "push", "origin", self.branch_name])
 
 
