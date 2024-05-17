@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ai_project_setup',
-    version='0.1.0',
+    version='2.0.0',
     packages=find_packages(),
     description='A utility package for setting up AI project structures.',
     author='Patrick Ogbuitepu',
