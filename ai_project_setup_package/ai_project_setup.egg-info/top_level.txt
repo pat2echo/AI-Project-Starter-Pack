@@ -1,1 +1,2 @@
+git_clone
 project_setup

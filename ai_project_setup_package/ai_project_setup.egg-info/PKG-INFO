@@ -1,7 +1,20 @@
 Metadata-Version: 2.1
-Name: ai_project_setup
-Version: 0.1.0
-Summary: A utility package for setting up AI project structures.
+Name: ai-project-setup
+Version: 0.2.2
+Summary: A versatile utility package designed to streamline the setup of AI project structures while seamlessly integrating with Git repositories and Google Colab, simplifying the process of building collaborative AI projects.
 Author: Patrick Ogbuitepu
 Author-email: pat2echo@gmail.com
-Keywords: project,setup,structure,ai,artificial intelligence,research,data science,machine learning
+Keywords: AI,utility package,project structure,Git integration,Google Colab integration,collaborative projects,ease of use,streamlined workflow,automation,project management,project,setup,structure,ai,artificial intelligence,research,data science,machine learning
+Description-Content-Type: text/markdown
+
+# AI Project Starter Pack
+The AI Project Starter Pack is a meticulously structured directory and module framework designed for creating machine learning and data science projects. This starter pack aims to streamline the project setup process, helping data scientists and developers organize their code, data, and documentation efficiently. 
+
+## GITHUB: https://github.com/pat2echo/AI-Project-Starter-Pack/
+
+## Features
+- **Project Structure Setup**: Quickly set up standardized project structures for AI projects.
+- **Git Integration**: Seamlessly integrate with Git repositories for version control and collaboration.
+- **Google Colab Integration**: Easily collaborate on projects using Google Colab notebooks.
+- **Streamlined Workflow**: Simplify the process of building and managing collaborative AI projects.
+- **Automation**: Automate repetitive tasks and streamline project management.

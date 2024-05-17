@@ -4,5 +4,7 @@ ai_project_setup.egg-info/PKG-INFO
 ai_project_setup.egg-info/SOURCES.txt
 ai_project_setup.egg-info/dependency_links.txt
 ai_project_setup.egg-info/top_level.txt
+git_clone/__init__.py
+git_clone/git_clone.py
 project_setup/__init__.py
 project_setup/project_setup.py
