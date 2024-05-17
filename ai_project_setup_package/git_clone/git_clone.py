@@ -173,7 +173,7 @@ class GitClone:
       user_dir = base_dir
       if url.startswith("http") and url.endswith(".git"):
         if os.path.exists(user_dir):
-            %cd {user_dir}
+            os.chdir(user_dir)
             git_dir = os.path.join(user_dir,dir)
             if os.path.exists(git_dir):
               print(f"\033[91mIMPORTANT! Directory {git_dir} already exists\033[0m")
@@ -187,7 +187,7 @@ class GitClone:
               !git clone {url}
             
             if os.path.exists(git_dir):
-              %cd {dir}
+              os.chdir(dir)
               print('List files: ', os.listdir())
             else:
               error = f"Failed to Clone Repo: Directory {git_dir} does not exists"
