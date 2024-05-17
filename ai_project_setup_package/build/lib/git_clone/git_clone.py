@@ -251,7 +251,9 @@ class GitClone:
       subprocess.run(["git", "config", "--global", "user.name", self.user_name])
 
       #!git config --global user.name {self.user_name}
-      !git add . 
+      #!git add . 
+      subprocess.run(["git", "add", "."])
+
       commit_msg = input("Enter your commit message that describes the changes that you have made to the files: ")
       if commit_msg == '':
         commit_msg = f'Commit at {datetime.now()}'
