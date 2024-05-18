@@ -22,6 +22,7 @@ class GitClone:
         self.content_dir = 'content'
         self.base_dir = f'/{self.content_dir}/'
         self.no_error = True
+        self.git_dir = ''
 
         self.url, self.dirname, self.user_email, self.user_name = self.get_repo_data(vc_repo, vc_user, vc_token)
         
@@ -29,7 +30,7 @@ class GitClone:
           self.base_dir = self.mount_gdrive(self.base_dir)
 
         if self.no_error:
-          self.clone_repo(self.url, self.dirname, self.base_dir)
+          self.git_dir = self.clone_repo(self.url, self.dirname, self.base_dir)
           
         if self.no_error:
           self.branch_name = self.get_git_branch_name()
@@ -107,17 +108,16 @@ class GitClone:
           else:
             error += f"\nEmail address provided is invalid: {user_email}"
 
-      # if error == '': 
-      #   try:
-      #       user_email = userdata.get('username')
-      #   except Exception as e:
-      #       error = f"An error occurred: {e}"
-      #       print(error, "You can also define this value as a secret")
-      #       user_name = input("Tell us your git username: ")
-      #       if user_name != '':
-      #         error = ''
-      #       else:
-      #         error += f"\nUsername provided is invalid: {user_name}"
+      if error == '': 
+        try:
+            user_name = userdata.get('username')
+        except Exception as e:
+            print(f"An error occurred: {e}", "You can also define this value as a secret")
+
+        if user_name == '':
+          print("Using email as username")
+          user_name = user_email
+
 
       if error == '':
         if vc_repo == '':
@@ -168,9 +168,10 @@ class GitClone:
         base_dir (str): Base/Root Directory Path. E.g In google colab its usually /content/
 
       Returns:
-        none: Returns Nothing
+        str: Directory Path of the Repo
       """
       error = ''
+      git_dir = ''
       user_dir = base_dir
       if url.startswith("http") and url.endswith(".git"):
         if os.path.exists(user_dir):
@@ -182,15 +183,31 @@ class GitClone:
               if confirm.lower() == 'yes':
                   shutil.rmtree(git_dir)
               else:
-                  error = f"User aborted the Clone Operation because the directory exists"
-              
+                  error = "User aborted the Clone Operation because the directory exists"
+            
+            attempt_pull = True  
             if error == '':
               #!git clone {url}
-              subprocess.run(["git", "clone", url])
+              self.subprocess_run(["git", "clone", url])
+              attempt_pull = False
             
             if os.path.exists(git_dir):
               os.chdir(dir)
               print('List files: ', os.listdir())
+
+              if attempt_pull:
+                print(error)
+                branch_name = self.get_git_branch_name()
+                if branch_name == '':
+                  error = "Unable to read branch name of git repo"
+                else:
+                  print(f"\033[94mIMPORTANT! About to Pull Updates from the repo\033[0m")
+                  confirm = input(f"Recent updates on *{branch_name} branch of the repo will be pulled and overwrite your local changes.\nDo you wish to proceed (yes/no): ")
+                  
+                  if confirm.lower() == 'yes':
+                    self.subprocess_run(["git", "pull", "origin", branch_name])
+                  else:
+                    error = "User pull process"
             else:
               error = f"Failed to Clone Repo: Directory {git_dir} does not exists"
               self.no_error = False
@@ -202,6 +219,8 @@ class GitClone:
         self.no_error = False
 
       if error: print(error)
+
+      return git_dir
     
     def get_git_branch_name(self):
       """Run the git branch command and capture the output
@@ -210,9 +229,12 @@ class GitClone:
         str: Name of current git branch
       """
       error = ''
-      branch_name = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD']).decode().strip()
-      ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-      branch_name = ansi_escape.sub('', branch_name)
+      try:
+        branch_name = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD']).decode().strip()
+        ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+        branch_name = ansi_escape.sub('', branch_name)
+      except subprocess.CalledProcessError as e:
+          error = str(e)
 
       # branch_name = ''
       # try:
@@ -234,34 +256,91 @@ class GitClone:
         self.no_error = False
 
       return branch_name
-
-    def commit_and_push(self, commit_message=''):
+    
+    def commit_and_push(self):
       """Save (commit) and push changes to git repository
 
+      Returns:
+        none: Returns Nothing
+      """
+      commit_msg = input("Enter your commit message that describes the changes that you have made to the files: ")
+      if commit_msg == '':
+        commit_msg = f'Commit at {datetime.now()}'
+
+      self.commit(commit_msg)
+      self.push()
+    
+    def set_dir(self):
+      """Check status of git repo
+
+      Returns:
+        none: Returns Nothing
+      """
+      os.chdir(self.git_dir)
+      self.subprocess_run(["git", "status"])
+
+    def status(self):
+      """Check status of git repo
+
+      Returns:
+        none: Returns Nothing
+      """
+      self.subprocess_run(["git", "status"])
+
+    def commit(self, commit_message=''):
+      """Commit or Save changes to local git repository
+
       Parameters:
-        commit_message (str): Describe the changes that you have made
+        commit_message (str): Commit message that describe the changes that you have made to the code
 
       Returns:
         none: Returns Nothing
       """
       #!git config --global user.email {self.user_email}
-      subprocess.run(["git", "config", "--global", "user.email", self.user_email])
+      self.subprocess_run(["git", "config", "user.email", self.user_email])
 
       #!git config --global user.name {self.user_email}
-      subprocess.run(["git", "config", "--global", "user.name", self.user_name])
+      self.subprocess_run(["git", "config", "user.name", self.user_name])
 
       #!git config --global user.name {self.user_name}
       #!git add . 
-      subprocess.run(["git", "add", "."])
+      self.subprocess_run(["git", "add", "."])
 
-      commit_msg = input("Enter your commit message that describes the changes that you have made to the files: ")
-      if commit_msg == '':
-        commit_msg = f'Commit at {datetime.now()}'
       #!git commit -m "{commit_msg}"
-      subprocess.run(["git", "commit", "-m", commit_msg])
-      #!git remote set-url origin {self.url}
-      subprocess.run(["git", "remote", "set-url", "origin", self.url])
-      #!git push origin {self.branch_name}
-      subprocess.run(["git", "push", "origin", self.branch_name])
+      self.subprocess_run(["git", "commit", "-m", commit_message])
 
+    def push(self):
+      """Save changes to remote git repository
+
+      Returns:
+        none: Returns Nothing
+      """
+      #!git remote set-url origin {self.url}
+      self.subprocess_run(["git", "remote", "set-url", "origin", self.url])
+      #!git push origin {self.branch_name}
+      self.subprocess_run(["git", "push", "origin", self.branch_name])
+
+    def subprocess_run(self, args):
+      """Run commands in terminal and display the output
+
+      Parameters:
+        args (list): Command to run
+
+      Returns:
+        str: Return Error Message
+      """
+      error = ''
+      try:
+        result = subprocess.run(args, capture_output=True)
+        if result.returncode == 0:
+            # Print the output
+            print("Output:", result.stdout.decode())
+        else:
+            error = result.stderr.decode()
+            print("Error:", error)
+      except subprocess.CalledProcessError as e:
+        error = str(e)
+        print(error)
+
+      return error
 
