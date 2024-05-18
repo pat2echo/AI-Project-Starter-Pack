@@ -15,7 +15,19 @@ GIT_ACCESS_TOKEN = ''
 GIT_REPO_URL = ''
 
 class GitClone:
-    def __init__(self, mount_google_drive=True, vc_repo='', vc_user='', vc_token=''):
+    def __init__(self, mount_google_drive=True, branch_name='', vc_repo='', vc_user='', vc_token=''):
+        """Clone or pull remote repo
+
+        Parameters:
+          mount_google_drive (bool): By default it is set to True
+          branch_name (str): Name of branch to clone. By default clones the main or master branch
+          vc_repo (str): URL of the remote git repo. E.g: https://github.com/pat2echo/AI-Project-Starter-Pack.git
+          vc_user (str): GIT Personal Access Token Name, for github this value should be left empty
+          vc_token (str): GIT Personal Access Token, it is encouraged that you set this value as a secret in google colab
+
+        Returns:
+          none: Returns Nothing
+        """
         self.vc_repo = vc_repo
         self.vc_user = vc_user
         self.vc_token = vc_token
@@ -23,6 +35,7 @@ class GitClone:
         self.base_dir = f'/{self.content_dir}/'
         self.no_error = True
         self.git_dir = ''
+        self.branch_name = branch_name
 
         self.url, self.dirname, self.user_email, self.user_name = self.get_repo_data(vc_repo, vc_user, vc_token)
         
@@ -188,7 +201,10 @@ class GitClone:
             attempt_pull = True  
             if error == '':
               #!git clone {url}
-              self.subprocess_run(["git", "clone", url])
+              if self.branch_name == '':
+                self.subprocess_run(["git", "clone", url])
+              else:
+                self.subprocess_run(["git", "clone", "-b", self.branch_name, url])
               attempt_pull = False
             
             if os.path.exists(git_dir):

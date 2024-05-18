@@ -2,10 +2,10 @@
 The AI Project Starter Pack is a meticulously structured directory and module framework designed for creating machine learning and data science projects. This starter pack aims to streamline the project setup process, helping data scientists and developers organize their code, data, and documentation efficiently. 
 
 # How it Works
-1. Install the package  
+## 1. Install the package  
    `pip install ai-project-setup`  
 
-2. Create your new AI Project and Package
+## 2. Create your new AI Project and Package (one-time operation)
 ```
 import project_setup as ps
 
@@ -69,3 +69,35 @@ Name_of_project/
 ├── requirements.txt        # Dependencies
 └── README.md               # Project overview
 ```
+
+## 3. Coding in Google Colab
+- [Get your git account tokens and setup your secrets in google colab](https://github.com/pat2echo/AI-Project-Starter-Pack/blob/main/docs/how%20to%20setup%20secrets.md")   
+- Optionally, you can pass your credentials when initializing the class as shown below:
+```
+git = psgit.GitClone(vc_repo=GIT_REPO_URL, vc_user=GIT_USER, vc_token=GIT_ACCESS_TOKEN)
+```
+
+- Import Package and Clone Repo, by default your google drive will be mounted as a temporary working space to hold contents of the github repo
+```
+import git_clone as psgit
+git = psgit.GitClone()
+```
+
+-- Optionally, if using branching strategy, although this is not advised. [You can checkout this article on continuous integration if you desire greater efficiency](https://medium.com/@pat2echo/dare-to-get-rapid-feedback-continuous-development-deployment-strategy-8516df6e9e26)
+```
+import git_clone as psgit
+git = psgit.GitClone(branch_name=GIT_BRANCH_NAME)
+```
+
+- Write Your Code and Manage Files in Google Drive
+- When writing your code you can easily access the directory path of your repo files, using:
+```
+print(git.git_dir)
+%cd {git.git_dir}
+%ls
+```
+- When done writing codes, commit your changes back to your repo
+```
+git.commit_and_push()
+```
+

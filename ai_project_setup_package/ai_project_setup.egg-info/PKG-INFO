@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: ai-project-setup
-Version: 0.2.7
+Version: 0.2.8
 Summary: A versatile utility package designed to streamline the setup of AI project structures while seamlessly integrating with Git repositories and Google Colab, simplifying the process of building collaborative AI projects.
 Author: Patrick Ogbuitepu
 Author-email: pat2echo@gmail.com
