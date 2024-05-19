@@ -113,7 +113,7 @@ git.commit_and_push()
 
 We need diverse skills such as strategic planning, project management, coding, documentation, research, and more. Your expertise can make a real impact!
 
-Send us a email to [ai@d1kit.com](mailto:ai@d1kit.com) 
+To indicate interest, send an email to [ai@d1kit.com](mailto:ai@d1kit.com) 
 
 Not ready to dive in? Support us by watching the repo and staying updated.
 
