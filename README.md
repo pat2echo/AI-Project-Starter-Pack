@@ -1,6 +1,14 @@
 # AI Project Starter Pack
 The AI Project Starter Pack is a meticulously structured directory and module framework designed for creating machine learning and data science projects. This starter pack aims to streamline the project setup process, helping data scientists and developers organize their code, data, and documentation efficiently. 
 
+# Features
+- **Project Structure Setup:** Quickly set up standardized project structures for AI projects.
+- **Git Integration:** Seamlessly integrate with Git repositories for version control and collaboration.
+- **Google Colab Integration:** Easily collaborate on projects using Google Colab notebooks.
+- **Streamlined Workflow:** Simplify the process of building and managing collaborative AI projects.
+- **Automation:** Automate repetitive tasks and streamline project management.
+- **AI based Guidiance:** Provide guide & assistance on core AI concepts to engineers
+
 # How it Works
 ## 1. Install the package  
    `pip install ai-project-setup`  
