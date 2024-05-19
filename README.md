@@ -79,7 +79,7 @@ Name_of_project/
 ```
 
 ## 3. Coding in Google Colab
-- [Get your git account tokens and setup your secrets in google colab](https://github.com/pat2echo/AI-Project-Starter-Pack/blob/main/docs/how%20to%20setup%20secrets.md")   
+- [Get your git account tokens and setup your secrets in google colab](https://github.com/pat2echo/AI-Project-Starter-Pack/blob/main/docs/how%20to%20setup%20secrets.md)   
 - Optionally, you can pass your credentials when initializing the class as shown below:
 ```
 git = psgit.GitClone(vc_repo=GIT_REPO_URL, vc_user=GIT_USER, vc_token=GIT_ACCESS_TOKEN)
