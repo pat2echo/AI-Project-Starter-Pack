@@ -1,12 +1,12 @@
 # How to Set-up Secrets (Git and Google Colab Setup Guide)
 
 ## Table of Contents
-- [Part 1: Creating a GitHub Account and Token](#part-1)
-- [Part 2: Creating a GitLab Account and Token](#part-2)
-- [Part 3: Setting Up Google Colab Secrets](#part-3)
+- [Part 1: Creating a GitHub Account and Token](#part-1-creating-a-github-account-and-token)
+- [Part 2: Creating a GitLab Account and Token](#part-2-creating-a-gitlab-account-and-token)
+- [Part 3: Setting Up Google Colab Secrets](#part-3-setting-up-google-colab-secrets)
 - [Safety Tips](#safety-tips)
 
-## PART 1: Creating a GitHub Account and Token {#part-1}
+## Part 1: Creating a GitHub Account and Token
 
 ### 1. Create GitHub Account
 - Go to github.com
@@ -27,7 +27,7 @@
 - Click "Generate token"
 - IMPORTANT: Copy and save your token immediately. You won't see it again!
 
-## PART 2: Creating a GitLab Account and Token {#part-2}
+## Part 2: Creating a GitLab Account and Token
 
 ### 1. Create GitLab Account
 - Go to gitlab.com
@@ -44,7 +44,7 @@
 - Click "Create personal access token"
 - IMPORTANT: Copy and save your token immediately
 
-## Part 3: Setting Up Google Colab Secrets {#part-3}
+## Part 3: Setting Up Google Colab Secrets
 
 ### 1. Open Google Colab
 - Go to colab.research.google.com
